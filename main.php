@@ -53,6 +53,7 @@ while (true) {
         . "premere 4 per eliminare un record" . PHP_EOL
         . "premere 5 per mostrare tutti i records presenti nella tabella" . PHP_EOL
         . "premere 6 per mostrare il record della sala" . PHP_EOL
+        . "premere 7 per mostrare il record dei pezzi" . PHP_EOL
         . "premere 0 per terminare il programma" . PHP_EOL;
     $input = readline("> ");
 
@@ -106,6 +107,9 @@ while (true) {
     else if($input == "6\n")  {
         $obj->sala();
     }  
+    else if($input == "7\n"){
+        $obj-> pezzo();
+    }
     else if ($input == "0\n") {
         exit(0);
     } 
