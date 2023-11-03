@@ -47,6 +47,9 @@ class Concerto {
     function getSala_id(){
         return $this->$sala_id;
     }
+    function getPezzo_id(){
+        return $this->$pezzo_id;
+    }
 
     public static function Create($dati) {
         $query = self::getPdo()->prepare(
@@ -110,6 +113,11 @@ class Concerto {
     public  function sala(){
         $stmt = self::getSala_id();
         $temp = new sala($stmt);
+        return $temp;
+    }
+    public function pezzo(){
+        $stmt = self::getPezzo_id();
+        $temp = new pezzo($stmt);
         return $temp;
     }
 
