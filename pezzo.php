@@ -4,7 +4,7 @@ class pezzo{
     private int $id;
     private string $codice;
     private string $titolo;
-    private string $autore;
+
 
     public static function getPdo() {
         return self::$pdo;
@@ -32,18 +32,29 @@ class pezzo{
     
 
     public static function create($dati){
+        
         $query = self::getPdo()->prepare(
             "INSERT INTO pezzi(codice, titolo) VALUES (:codice, :titolo)"
         )->execute([
             "codice" => $dati["codice"],
             "titolo" => $dati["titolo"],      
         ]);
+        $id = self::getPdo()->lastInsertId();
         $query = self::getPdo()->prepare(
-            "SELECT * FROM pezzi WHERE id=:id"
+            "INSERT INTO autori_pezzi(autori_id, pezzi_id) VALUES (:autori_id, :pezzi_id)"
+        )->execute([
+            "autori_id" => $dati["autori_id"],
+            "pezzi_id" => $id,      
+        ]);
+        $query = self::getPdo()->prepare(
+            "SELECT * FROM ((
+             INNER JOIN autori, pezzi ON autori_pezzi.pezzi_id = pezzi.id)
+             INNER JOIN autori, pezzi ON autori_pezzi.autori_id = autori.id)
+             WHERE id=:id"
         );
         $query->execute(["id" => self::getPdo()->lastInsertId()]);
-        $obj = $query->fetchObject(__CLASS__);
-        return $obj;
+        $query->fetch(PDO::FETCH_BOTH);
+        return $query;
     }
     public static function FindAll() {
         $query = self::getPdo()->prepare(
