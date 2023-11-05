@@ -9,6 +9,21 @@ CREATE TABLE sale(
     codice INT, 
     capienza INT
 )
+CREATE TABLE autori(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    codice INT,
+    nome TEXT
+)
+CREATE TABLE pezzi(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    codice INT,
+    titolo TEXT   
+)
+CREATE TABLE autori_pezzi(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pezzi_id INT,
+    autori_id INT
+)
 CREATE TABLE concerti (
     id INT AUTO_INCREMENT PRIMARY KEY, 
     codice TEXT, 
